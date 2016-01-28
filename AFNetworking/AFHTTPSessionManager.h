@@ -94,6 +94,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) AFHTTPResponseSerializer <AFURLResponseSerialization> * responseSerializer;
 
+/**
+ If `dataTaskOperationQueue` set to an instance of NSOpertionQueue, the convernience methods' dataTasks will be wrapped into instances of AFDataTaskOperation 
+    which start (resume) the dataTask by adding the operation to `dataTaskOperationQueue`.
+ */
+@property (nonatomic, strong, nullable) NSOperationQueue *dataTaskOperationQueue;
+
 ///---------------------
 /// @name Initialization
 ///---------------------

@@ -44,7 +44,6 @@
 
 @interface AFHTTPSessionManager ()
 @property (readwrite, nonatomic, strong) NSURL *baseURL;
-@property (nonatomic, strong) NSOperationQueue *dataTaskOperationQueue;
 @end
 
 @implementation AFHTTPSessionManager
