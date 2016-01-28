@@ -43,6 +43,8 @@
 #import <WatchKit/WatchKit.h>
 #endif
 
+#import "AFDataTaskOperation.h"
+
 @interface AFHTTPSessionManager ()
 @property (readwrite, nonatomic, strong) NSURL *baseURL;
 @end
@@ -113,7 +115,12 @@
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"GET" URLString:URLString parameters:parameters success:success failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
@@ -129,7 +136,12 @@
         }
     } failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
@@ -141,7 +153,12 @@
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"POST" URLString:URLString parameters:parameters success:success failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
@@ -179,8 +196,12 @@
         }
     }];
 
-    [task resume];
-
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:task];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [task resume];
+    }
     return task;
 }
 
@@ -191,7 +212,12 @@
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"PUT" URLString:URLString parameters:parameters success:success failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
@@ -203,7 +229,12 @@
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"PATCH" URLString:URLString parameters:parameters success:success failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
@@ -215,8 +246,12 @@
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"DELETE" URLString:URLString parameters:parameters success:success failure:failure];
 
-    [dataTask resume];
-
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
     return dataTask;
 }
 
