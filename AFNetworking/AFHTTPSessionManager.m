@@ -34,6 +34,8 @@
 #import <ifaddrs.h>
 #import <netdb.h>
 
+#import "AFDataTaskOperation.h"
+
 #if TARGET_OS_IOS || TARGET_OS_TV
 #import <UIKit/UIKit.h>
 #elif TARGET_OS_WATCH
@@ -42,6 +44,7 @@
 
 @interface AFHTTPSessionManager ()
 @property (readwrite, nonatomic, strong) NSURL *baseURL;
+@property (nonatomic, strong) NSOperationQueue *dataTaskOperationQueue;
 @end
 
 @implementation AFHTTPSessionManager
@@ -124,7 +127,12 @@
                                                           success:success
                                                           failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
@@ -140,7 +148,12 @@
         }
     } failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
@@ -161,8 +174,13 @@
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"POST" URLString:URLString parameters:parameters uploadProgress:uploadProgress downloadProgress:nil success:success failure:failure];
 
-    [dataTask resume];
-
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
+    
     return dataTask;
 }
 
@@ -221,7 +239,12 @@
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"PUT" URLString:URLString parameters:parameters uploadProgress:nil downloadProgress:nil success:success failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
@@ -233,7 +256,12 @@
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"PATCH" URLString:URLString parameters:parameters uploadProgress:nil downloadProgress:nil success:success failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
@@ -245,7 +273,12 @@
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"DELETE" URLString:URLString parameters:parameters uploadProgress:nil downloadProgress:nil success:success failure:failure];
 
-    [dataTask resume];
+    if (self.dataTaskOperationQueue) {
+        AFDataTaskOperation *op = [[AFDataTaskOperation alloc] initWithTask:dataTask];
+        [self.dataTaskOperationQueue addOperation:op];
+    } else {
+        [dataTask resume];
+    }
 
     return dataTask;
 }
