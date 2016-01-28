@@ -81,6 +81,16 @@
             location = "group:AFNetworking/AFURLResponseSerialization.m">
          </FileRef>
       </Group>
+      <Group
+         location = "container:"
+         name = "DataTaskConcurrency">
+         <FileRef
+            location = "group:AFNetworking/AFDataTaskOperation.h">
+         </FileRef>
+         <FileRef
+            location = "group:AFNetworking/AFDataTaskOperation.m">
+         </FileRef>
+      </Group>
    </Group>
    <Group
       location = "group:UIKit+AFNetworking"
